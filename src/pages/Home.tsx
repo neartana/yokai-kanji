@@ -2,10 +2,13 @@ import type { Progress } from '../lib/storage'
 import { todayStats } from '../lib/storage'
 import { firstReading, kanjiList, pathStations, yokaiList, type KanjiEntry } from '../lib/srs'
 import { images, stories } from '../lib/yokai'
+import { LanternIcon } from '../components/LanternProgress'
 
 type Props = {
   progress: Progress
   onStart: (mode: 'meaning' | 'reading') => void
+  onBoss: () => void
+  onMatch: () => void
 }
 
 type Quest = {
@@ -28,7 +31,7 @@ type Quest = {
 // Path + quests round: the main column gains a daily quests row under
 // the KPI strip and a 10-station learning path under the practise card.
 // Both read only real stored data, never invented numbers.
-export default function Home({ progress, onStart }: Props) {
+export default function Home({ progress, onStart, onBoss, onMatch }: Props) {
   const all = yokaiList()
   const next = all.find((item) => !progress.unlockedYokai.includes(item.name))
 
@@ -52,9 +55,10 @@ export default function Home({ progress, onStart }: Props) {
   }
   // The path zigzags like Duolingo's: left, centre, right, centre, ...
   const stationAlign = ['justify-start', 'justify-center', 'justify-end', 'justify-center']
-  // The current-station guide rotates through the four portraits by
-  // station number: 1 Kitsune, 2 Kappa, 3 Tengu, 4 Oni, 5 Kitsune, ...
-  const stationGuides = ['Kitsune', 'Kappa', 'Tengu', 'Oni']
+  // The current-station guide rotates through the seven portraits by
+  // station number: 1 Kitsune, 2 Kappa, 3 Tengu, 4 Oni, 5 Yuki-onna,
+  // 6 Tanuki, 7 Kodama, 8 Kitsune, ...
+  const stationGuides = ['Kitsune', 'Kappa', 'Tengu', 'Oni', 'Yuki-onna', 'Tanuki', 'Kodama']
 
   const review: KanjiEntry[] = []
   for (const item of kanjiList) {
@@ -67,13 +71,38 @@ export default function Home({ progress, onStart }: Props) {
   }
 
   return (
-    <div className="pb-24">
-      <div>
+    <div className="relative pb-24">
+      {/* Floating lanterns: a few small lanterns drifting slowly
+          upward on the Home background, low opacity, pointer-events
+          none, pure CSS. The content below is positioned, so it
+          paints above them and stays readable. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        {[
+          { left: '6%', top: '12%', scale: 1.6, delay: '0s', duration: '17s' },
+          { left: '88%', top: '30%', scale: 2.2, delay: '4s', duration: '21s' },
+          { left: '14%', top: '55%', scale: 1.2, delay: '8s', duration: '15s' },
+          { left: '80%', top: '70%', scale: 1.8, delay: '2s', duration: '19s' },
+          { left: '45%', top: '8%', scale: 1.1, delay: '11s', duration: '16s' },
+          { left: '68%', top: '48%', scale: 1.4, delay: '6s', duration: '22s' },
+        ].map((item, index) => (
+          <span
+            key={index}
+            className="lantern-drift absolute"
+            style={{ left: item.left, top: item.top, animationDelay: item.delay, animationDuration: item.duration }}
+          >
+            <span style={{ display: 'block', transform: `scale(${item.scale})` }}>
+              <LanternIcon lit />
+            </span>
+          </span>
+        ))}
+      </div>
+
+      <div className="relative">
         <h1 className="font-display text-2xl font-extrabold tracking-tight text-white md:text-[32px]">Yokai Kanji</h1>
         <p className="mt-2 text-base font-bold text-muted">What should I practise next, and how close am I to meeting the next yokai?</p>
       </div>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_384px]">
+      <div className="relative mt-8 grid gap-8 lg:grid-cols-[1fr_384px]">
         <div>
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-[20px] bg-line sm:grid-cols-3">
             <div className="bg-surface p-6">
@@ -149,6 +178,23 @@ export default function Home({ progress, onStart }: Props) {
                 </div>
               </div>
             </div>
+          </div>
+
+          <h2 className="mt-8 font-display text-xl font-extrabold tracking-tight text-white">More games</h2>
+          <p className="mt-2 text-base font-bold text-muted">Two more ways to play with the same 50 kanji.</p>
+          <div className="mt-3 grid gap-6 sm:grid-cols-2">
+            <button type="button" onClick={onBoss} aria-label="Challenge the Oni" className="rounded-[20px] bg-surface p-6 text-left">
+              <img src="/mascots/oni.png" alt="Oni plush mascot" className="h-16 w-16 object-contain" />
+              <span className="mt-3 block font-display text-lg font-extrabold tracking-tight text-white">Challenge the Oni</span>
+              <span className="mt-1 block text-base leading-6 text-muted">Answer to deal damage. Five hits win the battle, three wrong answers and your lanterns go out.</span>
+              <span className="mt-3 block text-sm font-bold text-lantern">Boss battle · 50 XP bonus</span>
+            </button>
+            <button type="button" onClick={onMatch} aria-label="Memory match" className="rounded-[20px] bg-surface p-6 text-left">
+              <img src="/mascots/kitsune.png" alt="Kitsune plush mascot" className="h-16 w-16 object-contain" />
+              <span className="mt-3 block font-display text-lg font-extrabold tracking-tight text-white">Memory match</span>
+              <span className="mt-1 block text-base leading-6 text-muted">Flip the cards and pair each kanji with its meaning. Match all 6 pairs.</span>
+              <span className="mt-3 block text-sm font-bold text-lantern">12 cards · 30 XP</span>
+            </button>
           </div>
 
           <h2 className="mt-8 font-display text-xl font-extrabold tracking-tight text-white">Learning path</h2>

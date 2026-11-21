@@ -8,7 +8,7 @@ type Props = {
 
 // One row of the collection list. The mascot portrait is the row's media
 // at 72px, shown at full strength once met and dimmed until then, so the
-// four portraits stay visible while the locked state stays honest.
+// seven portraits stay visible while the locked state stays honest.
 // The transparent PNG sits directly on the row's ground: no box, no
 // border, nothing that cuts the plush fur. Yokai with no portrait yet
 // show their kanji in the same slot.

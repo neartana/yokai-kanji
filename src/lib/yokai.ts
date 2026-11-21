@@ -1,5 +1,5 @@
-// The yokai's own words and portraits. Portraits exist for four yokai
-// only (kappa, kitsune, tengu, oni). Yokai without a portrait show their
+// The yokai's own words and portraits. Portraits exist for seven yokai
+// only (kappa, kitsune, tengu, oni, yuki-onna, tanuki, kodama). Yokai without a portrait show their
 // kanji in the media slot instead. Never invent a portrait file.
 export const stories: Record<string, string> = {
   Kappa: 'A river spirit who loves cucumbers and sumo.',
@@ -45,4 +45,7 @@ export const images: Record<string, string> = {
   Kitsune: '/mascots/kitsune.png',
   Tengu: '/mascots/tengu.png',
   Oni: '/mascots/oni.png',
+  'Yuki-onna': '/mascots/yuki-onna.png',
+  Tanuki: '/mascots/tanuki.png',
+  Kodama: '/mascots/kodama.png',
 }

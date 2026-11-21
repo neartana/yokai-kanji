@@ -13,7 +13,7 @@ type Filter = 'all' | 'met' | 'toMeet'
 
 // List pattern: count cards that filter. The selected card takes a 1.5px
 // lantern-amber border and a pale amber fill. Rows carry a 72px mascot
-// thumbnail for the four portraits; yokai with no portrait yet show
+// thumbnail for the seven portraits; yokai with no portrait yet show
 // their kanji in the same slot. No portrait file is invented.
 export default function Collection({ progress, onBack }: Props) {
   const all = yokaiList()

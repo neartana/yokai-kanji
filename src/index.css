@@ -135,3 +135,92 @@ h3 {
   letter-spacing: 0.8px;
   text-transform: uppercase;
 }
+
+/*
+  Interactive touches (games round, 2026-11-21). All motion is a
+  one-shot or a slow ambient loop, named keyframes only, never the
+  looping attention utilities. The feedback mascot bounces once on a
+  correct answer and shakes once on a wrong one; the boss Oni shakes
+  once per hit; a damage number floats up and fades; small lanterns
+  drift slowly upward on the Home background at low opacity.
+*/
+@keyframes mascot-bounce {
+  0% { transform: translateY(0); }
+  35% { transform: translateY(-12px); }
+  65% { transform: translateY(0); }
+  85% { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes mascot-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-7px); }
+  40% { transform: translateX(7px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+
+@keyframes lantern-drift {
+  0% { transform: translateY(24px); opacity: 0; }
+  15% { opacity: 0.3; }
+  85% { opacity: 0.3; }
+  100% { transform: translateY(-320px); opacity: 0; }
+}
+
+@keyframes damage-float {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-56px) scale(1.1); opacity: 0; }
+}
+
+.anim-bounce-once { animation: mascot-bounce 550ms ease-out; }
+.anim-shake-once { animation: mascot-shake 450ms ease-out; }
+.lantern-drift { animation: lantern-drift 18s linear infinite; }
+.damage-float { animation: damage-float 900ms ease-out forwards; }
+
+/*
+  Memory match flip: a 3D turn on a 300ms ease-out, transform only.
+  The face-down side shows a lantern; the face-up side shows the
+  kanji or its meaning, and the yokai portrait once the pair is met.
+*/
+.match-card { perspective: 700px; }
+
+.match-card-inner {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 300ms ease-out;
+}
+
+.match-card-inner.is-flipped { transform: rotateY(180deg); }
+
+.match-card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 20px;
+  padding: 8px;
+}
+
+.match-card-front {
+  background-color: var(--surface);
+  border: 2px solid var(--control);
+}
+
+.match-card-back {
+  background-color: var(--surface);
+  border: 2px solid var(--control);
+  transform: rotateY(180deg);
+}
+
+.match-card-back.is-matched {
+  background-color: var(--pill-positive-bg);
+  border-color: var(--accent);
+}

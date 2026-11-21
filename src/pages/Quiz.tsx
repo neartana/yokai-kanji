@@ -3,6 +3,7 @@ import QuizCard from '../components/QuizCard'
 import LanternProgress from '../components/LanternProgress'
 import { buildChoices, firstReading, pickSession, type KanjiEntry } from '../lib/srs'
 import { images } from '../lib/yokai'
+import { playCorrect, playWrong } from '../lib/sound'
 import type { Progress } from '../lib/storage'
 
 type Props = {
@@ -61,8 +62,10 @@ export default function Quiz({ mode, progress, onFinish, onExit }: Props) {
     setChecked(true)
     if (selected === correct) {
       setCorrectCount((value) => value + 1)
+      playCorrect()
     } else {
       setWrong((items) => [...items, entry])
+      playWrong()
     }
   }
 
@@ -113,7 +116,7 @@ export default function Quiz({ mode, progress, onFinish, onExit }: Props) {
               <img
                 src={images[feedbackYokai]}
                 alt={isCorrect ? `${feedbackYokai} cheering` : `${feedbackYokai} looking sorry`}
-                className={`h-24 w-24 flex-none object-contain ${isCorrect ? '' : 'opacity-70 grayscale-[35%]'}`}
+                className={`h-24 w-24 flex-none object-contain ${isCorrect ? 'anim-bounce-once' : 'anim-shake-once opacity-70 grayscale-[35%]'}`}
               />
               <div className="min-w-0">
                 <p className="font-display text-2xl font-extrabold tracking-tight">
