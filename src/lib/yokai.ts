@@ -1,0 +1,48 @@
+// The yokai's own words and portraits. Portraits exist for four yokai
+// only (kappa, kitsune, tengu, oni). Yokai without a portrait show their
+// kanji in the media slot instead. Never invent a portrait file.
+export const stories: Record<string, string> = {
+  Kappa: 'A river spirit who loves cucumbers and sumo.',
+  Tengu: 'A mountain guardian with a long nose and strong winds.',
+  Kitsune: 'A clever fox spirit who can change shape.',
+  Oni: 'A strong demon with horns and a loud laugh.',
+  'Yuki-onna': 'A snow woman who appears on cold winter nights.',
+  Tanuki: 'A playful raccoon dog who loves tricks and sake.',
+  Kodama: 'A quiet tree spirit who guards the forest.',
+  Amaterasu: 'The sun goddess who lights the morning sky.',
+  Tsukuyomi: 'The moon god who watches over the night.',
+  'Hi-no-Kami': 'The god of fire who lives in the hearth.',
+  Daikokuten: 'A god of fortune with a lucky mallet and a big sack.',
+  Tsuchigumo: 'A giant earth spider who lurks in the mountains.',
+  'Zashiki-warashi': 'A child spirit who brings luck to the house it haunts.',
+  Baku: 'A dream eater who devours bad dreams.',
+  'Kuchisake-onna': 'A woman in a mask who walks the night streets.',
+  'Teke Teke': 'A spirit who moves fast on her hands along the tracks.',
+  Mokumokuren: 'Eyes that open in the paper of torn shoji screens.',
+  Mimikaki: 'A small spirit who cleans ears with a tiny pick.',
+  'Ashi-magari': 'A spirit who tangles the legs of night walkers.',
+  Oboroguruma: 'A ghostly ox cart that rattles through foggy streets.',
+  Raijin: 'The thunder god who beats his drums in the storm.',
+  'Hanako-san': 'A girl spirit who answers knocks in the school toilet.',
+  Toshigami: 'The god of the new year who visits each home.',
+  Nurikabe: 'A living wall that blocks the road at night.',
+  Akaname: 'A spirit who licks the grime from bathhouses.',
+  Ushirogami: 'A spirit who tugs at hair from behind.',
+  Maekami: 'A spirit who pulls hair from the front.',
+  'Hone-onna': 'A skeleton woman who dances in the summer dark.',
+  Nekomata: 'A cat with a forked tail who speaks like a person.',
+  'Ame-onna': 'A rain woman who brings showers wherever she goes.',
+  'Hana-no-sei': 'A flower spirit who blooms where no one looks.',
+  Ishigami: 'A stone god who guards the village boundary.',
+  Azukiarai: 'A spirit who washes beans by the river at dusk.',
+  Kotodama: 'The spirit that lives inside spoken words.',
+  'Noppera-bo': 'A faceless spirit who borrows the face you expect.',
+  Inugami: 'A dog spirit bound to guard one family.',
+}
+
+export const images: Record<string, string> = {
+  Kappa: '/mascots/kappa.png',
+  Kitsune: '/mascots/kitsune.png',
+  Tengu: '/mascots/tengu.png',
+  Oni: '/mascots/oni.png',
+}
